@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  user-service:
+    build: ./user-service
+    ports:
+      - "5000:5000"
+    environment:
+      - DATABASE_HOST=db-service
+      - DATABASE_USER=ben
+      - DATABASE_PASSWORD=Aa123456
+      - DATABASE_NAME=mydb
+    depends_on:
+      - db-service
+    
+
+  product-service:
+    build: ./product-service
+    ports:
+      - "5001:5001"
+    environment:
+      - DATABASE_HOST=db-service
+      - DATABASE_USER=ben
+      - DATABASE_PASSWORD=Aa123456
+      - DATABASE_NAME=mydb
+    depends_on:
+      - db-service
+   
+
+  order-service:
+    build: ./order-service
+    ports:
+      - "5002:5002"
+    environment:
+      - DATABASE_HOST=db-service
+      - DATABASE_USER=ben
+      - DATABASE_PASSWORD=Aa123456
+      - DATABASE_NAME=mydb
+    depends_on:
+      - db-service
+   
+
+  db-service:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_USER=ben
+      - MYSQL_PASSWORD=Aa123456
+      - MYSQL_DATABASE=mydb
+    ports:
+      - "3306:3306"
+    
+
+
